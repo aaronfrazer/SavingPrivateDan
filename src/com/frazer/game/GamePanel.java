@@ -57,7 +57,7 @@ public class GamePanel extends JPanel implements Runnable
         g = (Graphics2D) img.getGraphics();
 
         mouse = new MouseHandler();
-        key = new KeyHandler();
+        key = new KeyHandler(this);
 
         gsm = new GameStateManager();
     }
@@ -79,7 +79,7 @@ public class GamePanel extends JPanel implements Runnable
         final double TTBR = 1000000000 / TARGET_FPS; // Total Time Before Render
 
         int frameCount = 0;
-        int lastSSecondTime = (int) (lastUpdateTime / 1000000000);
+        int lastSecondTime = (int) (lastUpdateTime / 1000000000);
         int oldFrameCount = 0;
 
         while (running)
@@ -105,16 +105,16 @@ public class GamePanel extends JPanel implements Runnable
             frameCount++;
 
             int thisSecond = (int) (lastUpdateTime / 1000000000);
-            if (thisSecond > lastSSecondTime)
+            if (thisSecond > lastSecondTime)
             {
                 if (frameCount != oldFrameCount)
                 {
-                    System.out.println("NEW SECOND " + thisSecond + " " + frameCount);
+                    System.out.println("NEW SECOND " + thisSecond + "    Last Second: " + lastSecondTime + "    Frames: " + frameCount);
                     oldFrameCount = frameCount;
                 }
 
                 frameCount = 0;
-                lastSSecondTime = thisSecond;
+                lastSecondTime = thisSecond;
             }
 
             while (now - lastRenderTime < TTBR && now - lastUpdateTime < TBU)
