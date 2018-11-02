@@ -14,8 +14,8 @@ import java.awt.image.BufferedImage;
 
 public class GamePanel extends JPanel implements Runnable
 {
-    private int width;
-    private int height;
+    public static int width;
+    public static int height;
 
     private Thread thread;
     private boolean running = false;
@@ -56,7 +56,7 @@ public class GamePanel extends JPanel implements Runnable
         img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         g = (Graphics2D) img.getGraphics();
 
-        mouse = new MouseHandler();
+        mouse = new MouseHandler(this);
         key = new KeyHandler(this);
 
         gsm = new GameStateManager();
